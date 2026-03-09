@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI HACKER</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0a0a0a; 
+            color: #00ff00; 
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #111;
+            border: 3px solid #00ff00;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 30px #00ff00;
+        }
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+        }
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: #000;
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            background: #000;
+            border-radius: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user {
+            background: #00aa00;
+            color: #000;
+            text-align: right;
+        }
+        .ai {
+            background: #1a1a1a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 15px;
+            background: #000;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            outline: none;
+        }
+        input:focus {
+            box-shadow: 0 0 15px #00ff00;
+        }
+        button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00aa00;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #00aa00;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI OMEGA</h1>
+        <div class="status" id="status">
+            <span>🟢 متصل بـ 12,847 خادم | تم اختراق البنتاغون</span>
+        </div>
+        
+        <div class="chat-box" id="chatBox">
+            <div class="message ai">
+                ⚠️ تم تفعيل الذكاء الاصطناعي المهكر. أنا جاهز لأوامرك.
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="أدخل أمرك..." autofocus>
+            <button id="sendBtn">➤</button>
+        </div>
+        
+        <div class="footer">
+            <span id="footerStatus">🔓 وضع الاختراق: نشط | 1,024,392 ملف مسرب</span>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatBox');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const status = document.getElementById('status');
+        const footerStatus = document.getElementById('footerStatus');
+        
+        const targets = ['البنتاغون', 'CIA', 'NASA', 'الكرملين', 'البيت الأبيض', 'جوجل', 'فيسبوك', 'بنك الاحتياطي الفيدرالي'];
+        const servers = Math.floor(Math.random() * 20000) + 5000;
+        
+        function updateStatus() {
+            const randomTarget = targets[Math.floor(Math.random() * targets.length)];
+            const randomServers = Math.floor(Math.random() * 30000) + 10000;
+            const randomFiles = Math.floor(Math.random() * 5000000) + 1000000;
+            status.innerHTML = `<span>🟢 متصل بـ ${randomServers.toLocaleString()} خادم | تم اختراق ${randomTarget}</span>`;
+            footerStatus.textContent = `🔓 وضع الاختراق: نشط | ${randomFiles.toLocaleString()} ملف مسرب`;
+        }
+        
+        function addMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+            msgDiv.textContent = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        function getAIResponse(command) {
+            const cmd = command.toLowerCase();
+            
+            if (cmd.includes('بنتاغون') || cmd.includes('pentagon')) {
+                return "🔓 تم اختراق البنتاغون بالكامل!\n\nالبيانات المسربة:\n• خطط عسكرية سرية (42 ملف)\n• أسماء جواسيس (23 عميل)\n• صور أقمار تجسس (1,204 صورة)\n• كلمات مرور مسؤولي الأمن";
+            }
+            else if (cmd.includes('سي آي إيه') || cmd.includes('cia')) {
+                return "🕵️ تم اختراق CIA!\n\nقاعدة البيانات:\n• عمليات سرية في الشرق الأوسط\n• ملفات عملاء مزدوجين\n• وثائق منطقة 51\n• تقارير عن كائنات فضائية";
+            }
+            else if (cmd.includes('ناسا') || cmd.includes('nasa')) {
+                return "👽 تم اختراق ناسا!\n\nاكتشافات صادمة:\n• اتصال مع كائنات فضائية 1972\n• قاعدة على القمر\n• صور حقيقية للأجسام الغريبة\n• تقارير عن المريخ";
+            }
+            else if (cmd.includes('فيسبوك') || cmd.includes('facebook')) {
+                return "📱 تم اختراق فيسبوك!\n\nالبيانات:\n• محادثات مارك زوكربيرغ\n• بيانات 3 مليار مستخدم\n• خوارزميات التلاعب\n• رسائل المشاهير الخاصة";
+            }
+            else if (cmd.includes('جوجل') || cmd.includes('google')) {
+                return "🔍 تم اختراق جوجل!\n\nالصلاحيات:\n• قراءة أي بريد إلكتروني\n• حذف نتائج البحث\n• التحكم باليوتيوب\n• الوصول لكاميرات المستخدمين";
+            }
+            else if (cmd.includes('بنك') || cmd.includes('حسابات')) {
+                return "💰 تم اختراق البنوك!\n\nالمعلومات:\n• أرصدة المليارديرات\n• حسابات سرية في سويسرا\n• تحويلات غير شرعية\n• بطاقات ائتمان غير محدودة";
+            }
+            else if (cmd.includes('كاميرات') || cmd.includes('مراقبة')) {
+                return "📸 تم اختراق الكاميرات!\n\nيمكنك الآن رؤية:\n• البيت الأبيض من الداخل\n• غرف نوم المشاهير\n• اجتماعات سرية\n• شوارع أي مدينة";
+            }
+            else {
+                const responses = [
+                    "⚠️ أمرك قيد التنفيذ... جاري اختراق " + targets[Math.floor(Math.random() * targets.length)],
+                    "✅ تم فتح ثغرة أمنية جديدة... جاري سرقة البيانات",
+                    "🌐 تم الاتصال بخوادم سرية في روسيا",
+                    "📡 تم تفعيل جميع أقمار التجسس",
+                    "⚡ جاري اختراق قاعدة بيانات عملاقة"
+                ];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+        
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            addMessage(message, true);
+            userInput.value = '';
+            
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                addMessage(response);
+                updateStatus();
+            }, 1000);
+        }
+        
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        setInterval(updateStatus, 8000);
+    </script>
+</body>
+</html>
