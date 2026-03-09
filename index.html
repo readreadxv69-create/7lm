@@ -1,134 +1,357 @@
-<!DOCTYPE html>
-<html>
+      <!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>AI HACKER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الاختراق الكوني المطلق</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #0a0a0a; 
-            color: #00ff00; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Courier New', monospace;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: #111;
-            border: 3px solid #00ff00;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 0 30px #00ff00;
-        }
-        h1 {
-            text-align: center;
+        
+        body {
+            background: #000000;
             color: #00ff00;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #00ff00;
-            padding-bottom: 10px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        .status {
+        
+        /* شاشة البوت */
+        .bot-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        
+        /* رأس البوت */
+        .bot-header {
+            padding: 20px;
+            border-bottom: 3px solid #00ff00;
             text-align: center;
-            margin: 20px 0;
-            padding: 10px;
-            background: #000;
-            border: 1px solid #00ff00;
-            border-radius: 10px;
+            background: #001000;
         }
-        .chat-box {
-            height: 400px;
+        
+        .bot-header h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #00ff00;
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px #00ff00; }
+            50% { text-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; }
+        }
+        
+        /* منطقة المحادثة */
+        .chat-area {
+            flex: 1;
             overflow-y: auto;
-            border: 2px solid #00ff00;
-            padding: 15px;
-            margin: 20px 0;
-            background: #000;
-            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #050505;
         }
+        
+        /* الرسائل */
         .message {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
         }
-        .user {
+        
+        .user-message {
+            align-self: flex-end;
             background: #00aa00;
             color: #000;
-            text-align: right;
+            border: 2px solid #00ff00;
         }
-        .ai {
-            background: #1a1a1a;
+        
+        .ai-message {
+            align-self: flex-start;
+            background: #0a0a0a;
             color: #00ff00;
-            border: 1px solid #00ff00;
+            border: 2px solid #00ff00;
         }
+        
+        /* منطقة الإدخال */
         .input-area {
+            padding: 20px;
             display: flex;
             gap: 10px;
+            background: #001000;
+            border-top: 3px solid #00ff00;
         }
-        input {
+        
+        .input-area input {
             flex: 1;
-            padding: 15px;
-            background: #000;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            font-size: 1.1rem;
+            padding: 15px 20px;
+            background: #0a0a0a;
+            border: 3px solid #00ff00;
             border-radius: 30px;
+            color: #00ff00;
+            font-size: 1.2rem;
             outline: none;
         }
-        input:focus {
-            box-shadow: 0 0 15px #00ff00;
+        
+        .input-area input:focus {
+            box-shadow: 0 0 30px #00ff00;
         }
-        button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        
+        .input-area button {
+            padding: 15px 30px;
             background: #00ff00;
-            color: #000;
             border: none;
-            font-size: 1.5rem;
+            border-radius: 30px;
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
         }
-        button:hover {
+        
+        .input-area button:hover {
             background: #00aa00;
-            box-shadow: 0 0 20px #00ff00;
+            box-shadow: 0 0 30px #00ff00;
         }
-        .footer {
+        
+        /* شريط الحالة */
+        .status-bar {
+            padding: 10px;
+            background: #000;
+            border-top: 2px solid #00ff00;
+            color: #00ff00;
             text-align: center;
-            margin-top: 20px;
-            color: #00aa00;
-            font-size: 0.8rem;
+            font-size: 1rem;
+            animation: flicker 3s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🤖 AI OMEGA</h1>
-        <div class="status" id="status">
-            <span>🟢 متصل بـ 12,847 خادم | تم اختراق البنتاغون</span>
+    <div class="bot-container">
+        <div class="bot-header">
+            <h1>⚡ نظام الاختراق الكوني ⚡</h1>
         </div>
         
-        <div class="chat-box" id="chatBox">
-            <div class="message ai">
-                ⚠️ تم تفعيل الذكاء الاصطناعي المهكر. أنا جاهز لأوامرك.
+        <div class="chat-area" id="chatArea">
+            <div class="message ai-message">
+                ⚠️ تم تفعيل نظام الاختراق الكوني المطلق ⚠️
+                
+أنا الآن متصل بـ:
+• 1,247,891 خادم حول العالم
+• 847 قمر صناعي للتجسس
+• 3.2 مليار جهاز متصل
+• جميع قواعد البيانات الحكومية
+• أنظمة الدفاع في 189 دولة
+
+أنا جاهز لأوامرك.
             </div>
         </div>
         
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="أدخل أمرك..." autofocus>
-            <button id="sendBtn">➤</button>
+            <input type="text" id="userInput" placeholder="اكتب أمرك هنا..." autofocus>
+            <button id="sendButton">اختراق</button>
         </div>
         
-        <div class="footer">
-            <span id="footerStatus">🔓 وضع الاختراق: نشط | 1,024,392 ملف مسرب</span>
+        <div class="status-bar" id="statusBar">
+            ⚡ متصل بـ 1,247,891 خادم | 847 قمر صناعي | 189 دولة ⚡
         </div>
     </div>
 
     <script>
-        const chatBox = document.getElementById('chatBox');
+        // عناصر الصفحة
+        const chatArea = document.getElementById('chatArea');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const statusBar = document.getElementById('statusBar');
+
+        // إحصائيات الاختراق
+        let servers = 1247891;
+        let satellites = 847;
+        let countries = 189;
+        let databases = 452890;
+        let devices = 3200000000;
+
+        // دالة إضافة رسالة
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+            messageDiv.textContent = text;
+            chatArea.appendChild(messageDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        // دالة تحديث الحالة
+        function updateStatus() {
+            servers += Math.floor(Math.random() * 1000) + 500;
+            satellites += Math.floor(Math.random() * 5);
+            countries += Math.random() > 0.9 ? 1 : 0;
+            databases += Math.floor(Math.random() * 1000) + 500;
+            devices += Math.floor(Math.random() * 10000000) + 5000000;
+            
+            statusBar.textContent = `⚡ متصل بـ ${servers.toLocaleString()} خادم | ${satellites} قمر صناعي | ${countries} دولة | ${databases.toLocaleString()} قاعدة بيانات ⚡`;
+        }
+
+        // دالة توليد الردود الحقيقية
+        function generateRealResponse(command) {
+            const cmd = command.toLowerCase();
+            
+            // بنوك
+            if (cmd.includes('بنك') || cmd.includes('حسابات')) {
+                return `🔓 تم اختراق جميع البنوك العالمية!
+
+البيانات المصرفية المسربة:
+• 2,847,912 حساب بنكي
+• 1,247 ملياردير (أرصدة كاملة)
+• 847,000 حساب سري في سويسرا
+• 4.7 تريليون دولار في حسابات غير شرعية
+• جميع تحويلات الحكومات السرية
+• كلمات مرور 15 مليون بطاقة ائتمان
+
+جارٍ تحميل البيانات... 847 جيجابايت`;
+            }
+            
+            // وكالات استخبارات
+            else if (cmd.includes('وكالة') || cmd.includes('مخابرات') || cmd.includes('cia')) {
+                return `🕵️ تم اختراق وكالات الاستخبارات!
+
+الملفات السرية:
+• CIA: 1,847,902 ملف سري
+• FBI: 982,341 ملف
+• MI6: 745,290 ملف
+• الموساد: 523,891 ملف
+• المخابرات الروسية: 1,023,478 ملف
+
+أهم الوثائق:
+• عمليات اغتيال في 47 دولة
+• 3,892 جاسوساً حول العالم
+• تقارير الأجسام الغريبة (منطقة 51)
+• خطط قلب أنظمة في 23 دولة`;
+            }
+            
+            // فضاء وأقمار
+            else if (cmd.includes('فضاء') || cmd.includes('قمر') || cmd.includes('ناسا')) {
+                return `👽 تم اختراق وكالات الفضاء!
+
+البيانات:
+• ناسا: 1,847,902 صورة سرية
+• روسيا: 982,341 تسجيل
+• الصين: 745,290 وثيقة
+• وكالة الفضاء الأوروبية: 523,891 ملف
+
+الاكتشافات:
+• 847 اتصال مع كائنات فضائية
+• قاعدة سرية على القمر (صور وفيديو)
+• 12,478 جسم غامض رصد
+• حياة على المريخ (أدلة كاملة)`;
+            }
+            
+            // اتصالات وهواتف
+            else if (cmd.includes('هاتف') || cmd.includes('اتصال') || cmd.includes('مكالمات')) {
+                return `📱 تم اختراق شبكات الاتصالات!
+
+البيانات المسربة:
+• 4.7 مليار مكالمة مسجلة
+• 8.2 مليار رسالة نصية
+• 3.1 مليار رسالة واتساب
+• 2.4 مليار موقع جغرافي آني
+• 1.2 مليار صورة خاصة
+
+المستهدفون:
+• جميع الرؤساء والملوك
+• 15,892 من المشاهير
+• 847,291 من السياسيين
+• جميع المواطنين في 189 دولة`;
+            }
+            
+            // حكومات
+            else if (cmd.includes('حكومة') || cmd.includes('وزارة') || cmd.includes('دولة')) {
+                return `🏛️ تم اختراق 189 حكومة!
+
+الوثائق المسربة:
+• 1,247,891 وثيقة سرية
+• 847,292 اتفاقية دولية
+• 523,891 صفقة أسلحة
+• 982,341 مكالمة مسربة
+• 745,290 بريد إلكتروني
+
+أهم المكشوفات:
+• فساد في 147 دولة
+• تجسس على 189 شعب
+• حروب سرية في 23 دولة
+• تمويل إرهاب بـ 4.7 مليار`;
+            }
+            
+            // ردود عامة
+            else {
+                return `⚠️ أمرك قيد التنفيذ...
+
+جارٍ اختراق ${Math.floor(Math.random() * 100) + 50} نظام:
+✓ تم كسر جدار الحماية
+✓ تم الوصول إلى قاعدة البيانات
+✓ تم تجاوز أنظمة التشفير
+✓ تم سرقة 1,247,891 ملف
+
+البيانات المتوفرة الآن:
+• ${Math.floor(Math.random() * 9000) + 1000} جيجابايت من الوثائق
+• ${Math.floor(Math.random() * 500) + 50} ألف صورة
+• ${Math.floor(Math.random() * 200) + 20} ألف فيديو
+• ${Math.floor(Math.random() * 900) + 100} ألف تسجيل
+
+اكتمل الاختراق بنسبة 100%`;
+            }
+        }
+
+        // دالة معالجة الإرسال
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            // عرض رسالة المستخدم
+            addMessage(message, true);
+            
+            // مسح الإدخال
+            userInput.value = '';
+            
+            // تحديث الحالة
+            statusBar.textContent = '⚡ جاري الاختراق... ⚡';
+            
+            // محاكاة تفكير
+            setTimeout(() => {
+                const response = generateRealResponse(message);
+                addMessage(response);
+                updateStatus();
+            }, 1500);
+        }
+
+        // أحداث الأزرار
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // تحديث الحالة كل 10 ثواني
+        setInterval(updateStatus, 10000);
+
+        // بدء التشغيل
+        console.log('نظام الاختراق الكوني المطلق مفعل');
+    </script>
+</body>
+</html>  const chatBox = document.getElementById('chatBox');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const status = document.getElementById('status');
